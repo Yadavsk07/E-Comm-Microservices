@@ -1,5 +1,6 @@
 package com.app.product_service.Config;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -30,6 +31,7 @@ public class RedisConfig {
                                 .fromSerializer(new GenericJackson2JsonRedisSerializer())
                 );
     }
+
 
     @Bean
     public RedisCacheManager cacheManager(

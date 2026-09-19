@@ -1,8 +1,11 @@
 package com.app.product_service;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
@@ -10,7 +13,6 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 @EnableMongoAuditing
 @EnableCaching
 public class ProductServiceApplication {
-
 
 	public static void main(String[] args) {
 
@@ -25,7 +27,7 @@ public class ProductServiceApplication {
 						entry.getValue()
 				)
 		);
+
 		SpringApplication.run(ProductServiceApplication.class, args);
 	}
-
 }
