@@ -91,7 +91,7 @@ jobs:
             echo "Connected to EC2"
             echo "========================================="
 
-            cd ~/Ecomm-Microservices
+            cd ~/ecomm-microservices
 
             echo "Current directory:"
             pwd
