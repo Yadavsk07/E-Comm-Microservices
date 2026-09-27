@@ -21,6 +21,7 @@ public class ApiGatewayApplication {
 				)
 		);
 
+		#Check comments
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
 
