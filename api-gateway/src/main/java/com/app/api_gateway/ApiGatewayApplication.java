@@ -20,8 +20,6 @@ public class ApiGatewayApplication {
 						entry.getValue()
 				)
 		);
-
-		#Check comments
 		SpringApplication.run(ApiGatewayApplication.class, args);
 	}
 
