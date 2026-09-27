@@ -1,0 +1,231 @@
+services:
+
+  # =========================================================
+  # Eureka Service Registry
+  # =========================================================
+  service-registry:
+    image: yadavsk07/service-registry:latest
+    container_name: service-registry
+
+    ports:
+      - "8761:8761"
+
+    environment:
+      PORT: 8761
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # API Gateway
+  # =========================================================
+  api-gateway:
+    image: yadavsk07/api-gateway:latest
+    container_name: api-gateway
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      PORT: 8080
+      EUREKA_SERVER_URL: http://service-registry:8761/eureka/
+      FRONTEND_URL: ${FRONTEND_URL}
+
+    depends_on:
+      - service-registry
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # Auth Service
+  # =========================================================
+  auth-service:
+    image: yadavsk07/auth-service:latest
+    container_name: auth-service
+
+    ports:
+      - "8081:8081"
+
+    environment:
+      PORT: 8081
+
+      # Eureka
+      EUREKA_SERVER_URL: http://service-registry:8761/eureka/
+
+      # MongoDB
+      AUTH_MONGO_URI: ${AUTH_MONGO_URI}
+
+      # JWT
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+
+      # Admin
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+
+    depends_on:
+      - service-registry
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # Product Service
+  # =========================================================
+  product-service:
+    image: yadavsk07/product-service:latest
+    container_name: product-service
+
+    ports:
+      - "8082:8082"
+
+    environment:
+      PORT: 8082
+
+      # Eureka
+      EUREKA_SERVER_URL: http://service-registry:8761/eureka/
+
+      # MongoDB
+      PRODUCT_MONGO_URI: ${PRODUCT_MONGO_URI}
+
+      # JWT
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+
+      # Redis
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_USERNAME: ${REDIS_USERNAME}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+    depends_on:
+      - service-registry
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # Cart Service
+  # =========================================================
+  cart-service:
+    image: yadavsk07/cart-service:latest
+    container_name: cart-service
+
+    ports:
+      - "8083:8083"
+
+    environment:
+      PORT: 8083
+
+      # Eureka
+      EUREKA_SERVER_URL: http://service-registry:8761/eureka/
+
+      # MongoDB
+      CART_MONGO_URI: ${CART_MONGO_URI}
+
+      # JWT
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+
+      # Redis
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_USERNAME: ${REDIS_USERNAME}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+    depends_on:
+      - service-registry
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # Order Service
+  # =========================================================
+  order-service:
+    image: yadavsk07/order-service:latest
+    container_name: order-service
+
+    ports:
+      - "8084:8084"
+
+    environment:
+      PORT: 8084
+
+      # Eureka
+      EUREKA_SERVER_URL: http://service-registry:8761/eureka/
+
+      # MongoDB
+      ORDER_MONGO_URI: ${ORDER_MONGO_URI}
+
+      # JWT
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+
+    depends_on:
+      - service-registry
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+  # =========================================================
+  # Payment Service
+  # =========================================================
+  payment-service:
+    image: yadavsk07/payment-service:latest
+    container_name: payment-service
+
+    ports:
+      - "8085:8085"
+
+    environment:
+      PORT: 8085
+
+      # Eureka
+      EUREKA_SERVER_URL: http://service-registry:8761/eureka/
+
+      # MongoDB
+      PAYMENT_MONGO_URI: ${PAYMENT_MONGO_URI}
+
+      # JWT
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS}
+
+      # Razorpay
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+
+    depends_on:
+      - service-registry
+
+    networks:
+      - ecommerce-network
+
+    restart: unless-stopped
+
+
+# =========================================================
+# Networks
+# =========================================================
+networks:
+  ecommerce-network:
+    driver: bridge
