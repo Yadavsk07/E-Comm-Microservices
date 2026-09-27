@@ -51,7 +51,10 @@ export function useRazorpay() {
         // Returns: { razorpayOrderId, orderId, currency, amount, status }
         const paymentOrder = await paymentApi.createPaymentOrder(orderId);
 
-        const keyId = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_TWonc74sHqBdZj';
+        const keyId = import.meta.env.VITE_RAZORPAY_KEY_ID;
+        if (!keyId) {
+          throw new Error('Razorpay Key ID is not configured. Please set VITE_RAZORPAY_KEY_ID in your .env environment file.');
+        }
 
         const options = {
           key: keyId,

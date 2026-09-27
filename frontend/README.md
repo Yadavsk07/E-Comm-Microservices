@@ -79,8 +79,8 @@ Create `.env` in the `frontend` root:
 # Gateway API URL (defaults to http://localhost:8080)
 VITE_API_BASE_URL=http://localhost:8080
 
-# Razorpay Test Key ID (matches payment-service application.properties)
-VITE_RAZORPAY_KEY_ID=rzp_test_TWonc74sHqBdZj
+# Razorpay Key ID
+VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
 ```
 
 ---
@@ -117,6 +117,5 @@ npm run preview
 
 ---
 
-## Seeded Credentials for Testing
-- **Admin**: `admin@gmail.com` / `Admin@123`
-- Or register a new account through `/register` (includes real address fields).
+## Account Authentication
+- You can register a new customer account directly through `/register` (includes shipping address fields), or sign in with your configured admin credentials.

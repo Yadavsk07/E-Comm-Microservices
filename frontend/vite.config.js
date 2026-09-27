@@ -20,8 +20,12 @@ export default defineConfig(({ mode }) => {
           target: proxyTarget,
           changeOrigin: true,
           secure: false,
-          timeout: 60000,
-          proxyTimeout: 60000,
+          ...(env.VITE_API_TIMEOUT
+            ? {
+                timeout: Number(env.VITE_API_TIMEOUT),
+                proxyTimeout: Number(env.VITE_API_TIMEOUT),
+              }
+            : {}),
           configure: (proxy) => {
             proxy.on('error', (err) => {
               console.error(`[Vite Proxy] Failed to forward request to backend (${proxyTarget}): ${err.message}`);

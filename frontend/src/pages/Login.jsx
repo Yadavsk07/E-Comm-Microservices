@@ -53,14 +53,6 @@ export default function Login() {
     }
   };
 
-  const handleDemoFill = () => {
-    setFormData({
-      email: 'admin@gmail.com',
-      password: 'Admin@123',
-    });
-    setError(null);
-  };
-
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="w-full max-w-sm space-y-5 rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 sm:p-7 shadow-xs">
@@ -75,20 +67,6 @@ export default function Login() {
           <p className="text-xs text-slate-500 dark:text-slate-400">
             Access your orders, cart, and recommendations.
           </p>
-        </div>
-
-        {/* Demo Quick Fill Hint */}
-        <div className="p-2.5 rounded-md bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-xs text-blue-900 dark:text-blue-300 flex items-center justify-between gap-2">
-          <div>
-            <span className="font-bold">Test:</span> admin@gmail.com
-          </div>
-          <button
-            type="button"
-            onClick={handleDemoFill}
-            className="font-bold text-blue-600 dark:text-blue-400 underline cursor-pointer"
-          >
-            Auto Fill
-          </button>
         </div>
 
         {/* Form */}

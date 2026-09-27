@@ -3,7 +3,7 @@ import axios from 'axios';
 const RAW_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const RAW_TIMEOUT = import.meta.env.VITE_API_TIMEOUT;
 
-export const API_TIMEOUT = RAW_TIMEOUT ? Number(RAW_TIMEOUT) : 60000;
+export const API_TIMEOUT = RAW_TIMEOUT ? Number(RAW_TIMEOUT) : 15000;
 
 // When running in the browser during local development on Vite's dev server,
 // requests through relative path (empty baseURL) hit Vite's built-in reverse proxy (/api -> proxyTarget).
