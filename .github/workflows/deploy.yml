@@ -96,11 +96,7 @@ jobs:
             echo "Current directory:"
             pwd
 
-            echo "========================================="
-            echo "Updating source code"
-            echo "========================================="
 
-            git pull origin main
 
             echo "========================================="
             echo "Updating production environment"
