@@ -1,5 +1,2 @@
-# Proxy API requests directly to DuckDNS API Gateway (bypasses browser CORS completely)
-/api/*  https://ecomm-microservices-api.duckdns.org/api/:splat  200!
-
 # SPA client-side routing fallback (serves index.html for React Router routes)
 /*      /index.html                                             200

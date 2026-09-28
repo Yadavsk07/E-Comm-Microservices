@@ -5,18 +5,19 @@ const RAW_TIMEOUT = import.meta.env.VITE_API_TIMEOUT;
 
 export const API_TIMEOUT = RAW_TIMEOUT ? Number(RAW_TIMEOUT) : 15000;
 
-// When running in the browser during local development on Vite's dev server,
-// requests through relative path (empty baseURL) hit Vite's built-in reverse proxy (/api -> proxyTarget).
-// This completely eliminates browser CORS issues in local development for both local and remote backends (e.g. AWS EC2).
-// For production or when VITE_DIRECT_API is set, it respects the explicit VITE_API_BASE_URL.
-export const API_BASE_URL = (() => {
-  if (!RAW_BASE_URL || RAW_BASE_URL === '/api') return '';
+// Direct API call configuration:
+// In production, all API calls go directly to the backend API Gateway.
+// In local development, relative path (empty string) routes requests through Vite's dev proxy
+// unless VITE_DIRECT_API is set to 'true'.
+const DEFAULT_PROD_URL = 'https://ecomm-microservices-api.duckdns.org';
 
+export const API_BASE_URL = (() => {
   if (import.meta.env.DEV && import.meta.env.VITE_DIRECT_API !== 'true') {
     return '';
   }
 
-  return RAW_BASE_URL.replace(/\/$/, '');
+  const base = RAW_BASE_URL && RAW_BASE_URL !== '/api' ? RAW_BASE_URL : DEFAULT_PROD_URL;
+  return base.replace(/\/$/, '');
 })();
 
 export const TOKEN_STORAGE_KEY = 'shopvibe_jwt_token';
