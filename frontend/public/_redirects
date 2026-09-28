@@ -1,0 +1,5 @@
+# Proxy API calls directly to the EC2 API Gateway to eliminate browser CORS
+/api/*  https://ecomm-microservices-api.duckdns.org/api/:splat  200!
+
+# SPA client-side routing fallback (fixes 404 on refresh)
+/*      /index.html                                             200
