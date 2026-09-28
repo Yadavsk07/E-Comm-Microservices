@@ -2,6 +2,10 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  # Tell Netlify's secret scanner to omit public frontend env variables from secrets detection
+  SECRETS_SCAN_OMIT_KEYS = "VITE_API_BASE_URL,VITE_API_TIMEOUT,VITE_RAZORPAY_KEY_ID"
+
 # SPA client-side routing fallback for React Router SPA
 [[redirects]]
   from = "/*"
